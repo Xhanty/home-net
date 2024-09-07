@@ -1,10 +1,32 @@
-import React from 'react'
-import Sidenav from './components/sidenav'
+'use client'
 
-export default function index() {
+import React, { useState } from 'react'
+import Sidenav from './components/sidenav'
+import Upbar from './components/upbar'
+import 'material-icons/iconfont/material-icons.css'
+import Dashboard from './views/dashboard'
+
+export default function Index() {
+
+    const [view, setView] = useState(<Dashboard />)
+
+    const handleViewChange = (newView: JSX.Element) => {
+        setView(newView);
+    };
+
     return (
-        <div className="min-h-screen bg-blue-gray-50/50">
-            <Sidenav />
-        </div>
+        <>
+            <Upbar />
+            <section className="main_container">
+                <Sidenav viewAction={handleViewChange} />
+
+                <section className='content_app'>
+                    {view}
+                </section>
+
+
+            </section>
+        </>
+
     )
 }
