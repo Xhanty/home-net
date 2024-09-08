@@ -1,10 +1,58 @@
+'use client'
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react'
+import React, { FormEvent, useState } from 'react'
 import '../globals.css'
 import Link from 'next/link';
 
+import { useRouter } from 'next/navigation'
+
+import { Oval } from 'react-loader-spinner'
+import { login } from './services'
+import { toast } from 'react-toastify';
+import { sessionInterface } from '../interfaces/session';
+
+
+
 export default function Login() {
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const router = useRouter()
+
+    const onLogin = async (evt: FormEvent<HTMLFormElement>) => {
+        evt.preventDefault()
+
+        setIsLoading(true)
+
+        try {
+            const response = await login(new FormData(evt.currentTarget)) as sessionInterface
+
+            if (response.status) {
+                if (response.AuthToken && response.data) {
+                    localStorage.setItem('AuthToken', response.AuthToken)
+                    localStorage.setItem('userData', JSON.stringify(response.data))
+                    toast.success('Sesión iniciada')
+                    router.push('/dashboard')
+                } else {
+                    toast.error('Datos de sesión inválidos')
+                }
+
+            } else {
+                toast.error(response.msg ?? 'Error al iniciar sesión')
+            }
+
+
+            setIsLoading(false)
+
+        } catch (error) {
+            toast.error('Error al iniciar sesión: ' + error)
+
+            setIsLoading(false)
+        }
+
+
+    }
 
     return (
         <section className="min-h-screen flex items-stretch text-white">
@@ -80,28 +128,49 @@ export default function Login() {
                         {/* Logo */}
                         <img style={{ width: '200px', margin: '0 auto' }} src="https://api.natupuntos.online/api/uploads/users/profile/logo-text.png" alt="Logo HomeNet" />
                     </h1>
-                    <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+                    <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto" onSubmit={onLogin}>
                         <div className="pb-2 pt-4">
                             <input
-                                type="email"
+                                name='user_name'
+                                type="text"
                                 placeholder="Correo electronico"
                                 className="block w-full p-4 text-lg rounded-sm bg-black"
+                                required
                             />
                         </div>
                         <div className="pb-2 pt-4">
                             <input
+                                name='password'
                                 className="block w-full p-4 text-lg rounded-sm bg-black"
                                 type="password"
                                 placeholder="Contraseña"
+                                required
                             />
                         </div>
                         <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
                             <Link href={'/login/register'}>¿No tienes cuenta? ¡Registrate!</Link>
                         </div>
                         <div className="px-4 pb-2 pt-4">
-                            <button className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
-                                Iniciar sesión
-                            </button>
+                            {
+                                isLoading ?
+                                    <div style={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        marginTop: '20px',
+                                    }}>
+                                        <Oval
+                                            height={50}
+                                            width={50}
+                                            color='var(--color-primary)'
+                                            secondaryColor='var(--color-primary)'
+                                        />
+                                    </div>
+                                    : <button className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
+                                        Iniciar sesión
+                                    </button>
+                            }
+
                         </div>
                     </form>
 
