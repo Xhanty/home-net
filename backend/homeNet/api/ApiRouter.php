@@ -11,6 +11,7 @@ class ApiRouter
     {
         $this->apiRouter = [
             'demo' => [],
+            'proveedores' => []
         ];
     }
 
