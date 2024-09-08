@@ -1,4 +1,4 @@
-# HomeNet - Plataforma de Energía Prepaga con Criptomonedas
+# HomeNet - Plataforma de Energía Prepagada con Criptomonedas
 
 **HomeNet** es una plataforma descentralizada para contratar energía renovable prepaga usando criptomonedas. Basado en la red Avalanche y aprovechando la tecnología de Web3, permite a los usuarios realizar transacciones seguras mediante contratos inteligentes (Smart Contracts) escritos en Solidity. Los usuarios también obtienen **cashback** en nuestro token nativo **HMT** por cada compra de energía, y cuentan con un panel para visualizar gráficos de consumo y otras métricas.
 
