@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react'
 import '../globals.css'
@@ -77,16 +78,8 @@ export default function Login() {
                 <div className="w-full py-6 z-20">
                     <h1 className="my-6">
                         {/* Logo */}
-                        <svg viewBox="0 0 247 31" className="w-auto h-7 sm:h-8 inline-flex">
-                            <path
-                                fill="rgba(99,102,241, .8)"
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M25.517 0C18.712 0 14.46 3.382 12.758 10.146c2.552-3.382 5.529-4.65 8.931-3.805 1.941.482 3.329 1.882 4.864 3.432 2.502 2.524 5.398 5.445 11.722 5.445 6.804 0 11.057-3.382 12.758-10.145-2.551 3.382-5.527 4.649-8.93 3.804-1.94-.482-3.329-1.881-4.863-3.432C34.49 3.42 31.595.5 25.517.5z"
-                            />
-                        </svg>
+                        <img style={{ width: '200px', margin: '0 auto' }} src="https://api.natupuntos.online/api/uploads/users/profile/logo-text.png" alt="Logo HomeNet" />
                     </h1>
-                    <p className="text-gray-100">Inicia sesión con tu cuenta</p>
                     <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                         <div className="pb-2 pt-4">
                             <input

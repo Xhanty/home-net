@@ -44,7 +44,7 @@ export default function Upbar() {
 
             <div className="profile">
                 <div className="info">
-                    <p>Hey, <b>User Name</b></p>
+                    <p>User Name</p>
                     <small className="text-muted">Admin</small>
                 </div>
                 <div className="profile-photo" style={{

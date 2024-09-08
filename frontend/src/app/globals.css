@@ -66,30 +66,30 @@ body {
   background-color: var(--color-background);
 }
 
-body::-webkit-scrollbar {
+.content_app::-webkit-scrollbar {
   -webkit-appearance: none;
 }
 
-body::-webkit-scrollbar:vertical {
+.content_app::-webkit-scrollbar:vertical {
   width: 7px;
 }
 
-body::-webkit-scrollbar-button:increment,
+.content_app::-webkit-scrollbar-button:increment,
 .contenedor::-webkit-scrollbar-button {
   display: none;
 }
 
-body::-webkit-scrollbar:horizontal {
+.content_app::-webkit-scrollbar:horizontal {
   height: 7px;
 }
 
-body::-webkit-scrollbar-thumb {
+.content_app::-webkit-scrollbar-thumb {
   background-color: #797979;
   border-radius: 20px;
   border: none;
 }
 
-body::-webkit-scrollbar-track {
+.content_app::-webkit-scrollbar-track {
   border-radius: 10px;
 }
 
@@ -268,7 +268,7 @@ aside .sidebar .message-count {
 
 .main_container .analyse {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 10rem auto;
   gap: 1.6rem;
 }
 
@@ -402,8 +402,17 @@ aside .sidebar .message-count {
   padding: var(--card-padding);
   text-align: center;
   box-shadow: var(--box-shadow);
-  border-radius: var(--card-border-radius);
+  border-radius: 0.5rem;
   transition: all 0.3s ease;
+}
+
+.main_container .table-section table thead tr th {
+  padding-block: 1rem !important;
+}
+
+.main_container .table-section table thead tr {
+  background-color: var(--color-primary);
+  color: white;
 }
 
 .main_container .table-section table:hover {
@@ -593,7 +602,7 @@ w3m-button {
 @media screen and (max-width: 1200px) {
   .main_container {
     width: 95%;
-    grid-template-columns: 7rem auto 23rem;
+    grid-template-columns: 7rem auto;
   }
 
   aside .logo h2 {

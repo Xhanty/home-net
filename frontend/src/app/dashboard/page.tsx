@@ -6,6 +6,9 @@ import Upbar from './components/upbar'
 import 'material-icons/iconfont/material-icons.css'
 import Dashboard from './views/dashboard'
 
+import { ToastContainer } from 'react-toastify';
+
+
 export default function Index() {
 
     const [view, setView] = useState(<Dashboard />)
@@ -26,6 +29,7 @@ export default function Index() {
 
 
             </section>
+            <ToastContainer />
         </>
 
     )

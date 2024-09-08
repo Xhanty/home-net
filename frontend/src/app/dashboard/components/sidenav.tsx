@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React, { FC, useEffect } from 'react'
 import History from '../views/history'
 import Dashboard from '../views/dashboard'
+import Adquirir from '../views/adquirir'
 
 interface SidenavProps {
     viewAction: (component: JSX.Element) => void;
@@ -46,8 +47,16 @@ const Sidenav: FC<SidenavProps> = ({ viewAction }) => {
                     <span className="material-icons-sharp">
                         dashboard
                     </span>
-                    <h3>Dashboard</h3>
+                    <h3>Inicio</h3>
                 </a>
+
+                <a href="#" onClick={() => viewAction(<Adquirir />)}>
+                    <span className="material-icons-sharp">
+                        receipt_long
+                    </span>
+                    <h3>Adquirir</h3>
+                </a>
+
                 <a href="#" onClick={() => viewAction(<History />)}>
                     <span className="material-icons-sharp">
                         history
@@ -55,13 +64,7 @@ const Sidenav: FC<SidenavProps> = ({ viewAction }) => {
                     <h3>Historial</h3>
                 </a>
 
-                {/* <a href="#">
-                    <span className="material-icons-sharp">
-                        person_outline
-                    </span>
-                    <h3>Users</h3>
-                </a>
-                <a href="#">
+                {/*<a href="#">
                     <span className="material-icons-sharp">
                         receipt_long
                     </span>
