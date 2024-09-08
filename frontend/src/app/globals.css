@@ -319,7 +319,7 @@ aside .sidebar .message-count {
 .main_container .analyse .sales svg circle {
   stroke: var(--color-success);
   stroke-dashoffset: 0;
-  stroke-dasharray: 100;
+  stroke-dasharray: 0;
 }
 
 .main_container .analyse .visits svg circle {

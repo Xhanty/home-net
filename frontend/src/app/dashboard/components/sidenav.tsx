@@ -64,6 +64,13 @@ const Sidenav: FC<SidenavProps> = ({ viewAction }) => {
                     <h3>Historial</h3>
                 </a>
 
+                <a href="#">
+                    <span className="material-icons-sharp">
+                        settings
+                    </span>
+                    <h3>Configuración</h3>
+                </a>
+
                 {/*<a href="#">
                     <span className="material-icons-sharp">
                         receipt_long
@@ -94,7 +101,7 @@ const Sidenav: FC<SidenavProps> = ({ viewAction }) => {
                     <span className="material-icons-sharp">
                         logout
                     </span>
-                    <h3>Logout</h3>
+                    <h3>Salir</h3>
                 </Link>
             </div>
         </aside>
