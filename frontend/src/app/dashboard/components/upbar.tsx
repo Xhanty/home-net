@@ -1,9 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
-import React from 'react'
+import { userInterface } from '@/app/interfaces/session';
+import React, { useEffect, useState } from 'react'
 
 export default function Upbar() {
+
+    const [user, setUser] = useState<userInterface>({} as userInterface)
+
     const darkModeFnt = () => {
         const darkMode = document.querySelector('.dark-mode');
         if (darkMode) {
@@ -12,6 +16,10 @@ export default function Upbar() {
             darkMode.querySelector('span:nth-child(2)')?.classList.toggle('active');
         }
     }
+
+    useEffect(() => {
+        setUser(JSON.parse(localStorage.getItem('userData') || '{}'))
+    }, [])
 
     return (
         <div className="nav" style={
@@ -44,7 +52,11 @@ export default function Upbar() {
 
             <div className="profile">
                 <div className="info">
-                    <p>User Name</p>
+                    {
+                        user.user_name ?
+                            <p>{user.user_name}</p>
+                            : <p>...</p>
+                    }
                     <small className="text-muted">Admin</small>
                 </div>
                 <div className="profile-photo" style={{

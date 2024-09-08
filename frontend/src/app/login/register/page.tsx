@@ -1,8 +1,64 @@
+'use client'
+
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { FormEvent, useState } from 'react'
 
-const page = () => {
+import { toast } from 'react-toastify';
+
+import { register } from '../services'
+import { sessionInterface } from '@/app/interfaces/session';
+
+import { Oval } from 'react-loader-spinner'
+
+const Page = () => {
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const router = useRouter()
+
+    const onRegister = async (evt: FormEvent<HTMLFormElement>) => {
+        evt.preventDefault()
+
+        setIsLoading(true)
+
+        try {
+
+            const formData = new FormData(evt.currentTarget)
+
+            const dataObj = Object.fromEntries(formData.entries())
+
+            formData.append('email', dataObj.user_name)
+
+            const namesArry = dataObj.fullName.toString().split(' ')
+
+            formData.append('name', namesArry[0])
+            formData.append('last_name', namesArry[namesArry.length - 1])
+
+            const response = await register(formData) as sessionInterface
+
+            if (response.status) {
+
+                toast.success('Usuario registrado correctamente')
+                router.push('/login')
+
+            } else {
+                toast.error(response.msg ?? 'Error al registrar usuario')
+            }
+
+
+            setIsLoading(false)
+
+        } catch (error) {
+            toast.error('Error al registrar usuario: ' + error)
+
+            setIsLoading(false)
+        }
+
+
+    }
+
     return (
         <section className="min-h-screen flex items-stretch text-white">
             {/* Sección izquierda solo visible en pantallas grandes */}
@@ -77,12 +133,14 @@ const page = () => {
                         {/* Logo */}
                         <img style={{ width: '200px', margin: '0 auto' }} src="https://api.natupuntos.online/api/uploads/users/profile/logo-text.png" alt="Logo HomeNet" />
                     </h1>
-                    <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+                    <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto" onSubmit={onRegister}>
                         <div className="pb-2 pt-4">
                             <input
                                 type="text"
                                 placeholder="Nombre completo"
                                 className="block w-full p-4 text-lg rounded-sm bg-black"
+                                required
+                                name='fullName'
                             />
                         </div>
                         <div className="pb-2 pt-4">
@@ -90,6 +148,8 @@ const page = () => {
                                 type="email"
                                 placeholder="Correo electronico"
                                 className="block w-full p-4 text-lg rounded-sm bg-black"
+                                required
+                                name='user_name'
                             />
                         </div>
                         <div className="pb-2 pt-4">
@@ -97,15 +157,35 @@ const page = () => {
                                 className="block w-full p-4 text-lg rounded-sm bg-black"
                                 type="password"
                                 placeholder="Contraseña"
+                                required
+                                name='password'
                             />
                         </div>
                         <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
-                            <Link href={'/login'}>¿Ya tienes cuenta? ¡Inicia!</Link>
+                            <Link style={{ color: '#fff' }} href={'/login'}>¿Ya tienes cuenta? ¡Inicia!</Link>
                         </div>
                         <div className="px-4 pb-2 pt-4">
-                            <button className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
-                                Registrarse
-                            </button>
+
+                            {
+                                isLoading ?
+                                    <div style={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        marginTop: '20px',
+                                    }}>
+                                        <Oval
+                                            height={50}
+                                            width={50}
+                                            color='var(--color-primary)'
+                                            secondaryColor='var(--color-primary)'
+                                        />
+                                    </div>
+                                    : <button className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
+                                        Registrarse
+                                    </button>
+                            }
+
                         </div>
                     </form>
 
@@ -115,4 +195,4 @@ const page = () => {
     );
 }
 
-export default page
+export default Page

@@ -21,9 +21,17 @@ const login = (formData: FormData) => {
     })
 }
 
+const register = (formData: FormData) => {
+    return query(apiUrl.register, {
+        method: 'POST',
+        body: formData
+    })
+}
+
 export {
     mainApiUrl,
     query,
     login,
-    apiUrl
+    apiUrl,
+    register
 }

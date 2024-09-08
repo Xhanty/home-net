@@ -148,7 +148,7 @@ export default function Login() {
                             />
                         </div>
                         <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
-                            <Link href={'/login/register'}>¿No tienes cuenta? ¡Registrate!</Link>
+                            <Link style={{ color: '#fff' }} href={'/login/register'}>¿No tienes cuenta? ¡Registrate!</Link>
                         </div>
                         <div className="px-4 pb-2 pt-4">
                             {
