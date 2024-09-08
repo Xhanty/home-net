@@ -1,12 +1,14 @@
 'use client'
 
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import '../../css/form.css'
 import { useAccount, useWriteContract } from 'wagmi'
 import { Oval } from 'react-loader-spinner'
 import { toast } from 'react-toastify';
 
 import env from '../../../../enviroment.json'
+import { apiUrl, query } from '@/app/login/services'
+import { providerQuery, provider } from '@/app/interfaces/session'
 
 export default function Adquirir() {
 
@@ -14,6 +16,13 @@ export default function Adquirir() {
 
     const [wattsCount, setWattsCount] = useState(0)
     const [isSaving, setIsSaving] = useState(false)
+
+    const [providers, setProviders] = useState<provider[]>([] as provider[])
+
+
+    useEffect(() => {
+        getProvider()
+    }, [])
 
     const currentUser = useAccount()
 
@@ -74,6 +83,25 @@ export default function Adquirir() {
 
     }
 
+    const getProvider = async () => {
+
+        try {
+            const rsp = await query(apiUrl.providers, {
+                method: 'GET',
+            }) as providerQuery
+
+            if (rsp.status) {
+                setProviders(rsp.data)
+            } else {
+                toast.error("Error al cargar los proveedor")
+            }
+
+        } catch (error) {
+            toast.error("Error al cargar los proveedores")
+        }
+
+    }
+
     return (
 
         <>
@@ -85,7 +113,14 @@ export default function Adquirir() {
                         <label htmlFor="">Proveedor</label>
                         <select name="provider" required>
                             <option selected disabled > Seleccione una opción </option>
-                            <option value="0xc6811Fc3AE53AFde1812A372b88F152d062fdef2">Santiago</option>
+                            {
+                                providers.map((provider: provider) => {
+                                    return (
+                                        <option key={provider.id} value={provider.wallet}>{provider.name}</option>
+                                    )
+                                })
+                            }
+
                         </select>
                     </div>
                 </div>
@@ -129,34 +164,28 @@ export default function Adquirir() {
                         <tr>
                             <th style={{
                                 borderRadius: '.5rem 0 0 0',
-                            }}>#</th>
-                            <th>Proveedor</th>
-                            <th>Precio Watt</th>
+                            }}>ID</th>
+                            <th>Nombre</th>
+                            <th>Wallet</th>
+                            <th>Ciudad</th>
                             <th style={{
                                 borderRadius: '0 .5rem 0 0',
-                            }}>Calificación</th>
+                            }}>Valor</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr >
-                            <td>1</td>
-                            <td>Proveedora</td>
-                            <td>2 AVAX</td>
-                            <td>Calificación</td>
-                        </tr>
                         {
-                            // history.map((row, key) => {
-                            //     return (
-                            //         <tr key={key} >
-                            //             <td>{row.id.toString()}</td>
-                            //             <td>{row.Proveedor}</td>
-                            //             <td>{row.Watts.toString() + ' W'}</td>
-                            //             <td>{formatTimestampToDate(row.FCompra as bigint)}</td>
-                            //             <td>{(+row.Valor.toString() / 18).toString().substring(0, 10) + ' AVAX'}</td>
-                            //         </tr>
-                            //     )
-                            // })
+                            providers.map((row, key) => {
+                                return (
+                                    <tr key={key} >
+                                        <td>{row.id}</td>
+                                        <td>{row.name}</td>
+                                        <td>{row.wallet}</td>
+                                        <td>{row.city}</td>
+                                        <td>{row.valor} AVAX</td>
+                                    </tr>
+                                )
+                            })
                         }
                     </tbody>
                 </table>

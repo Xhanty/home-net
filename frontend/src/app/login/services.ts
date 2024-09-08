@@ -3,6 +3,7 @@ const mainApiUrl = 'https://demo.natupuntos.online/'
 const apiUrl = {
     login: new URL('user/login/', mainApiUrl),
     register: new URL('user/register/', mainApiUrl),
+    providers: new URL('api/proveedores', mainApiUrl)
 }
 
 const query = (url: URL, body: object) => {

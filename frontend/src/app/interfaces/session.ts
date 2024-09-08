@@ -21,7 +21,23 @@ interface sessionInterface {
     msg: string | null,
 }
 
+interface provider {
+    id: number,
+    name: string,
+    wallet: string,
+    city: string,
+    valor: number,
+}
+
+interface providerQuery {
+    status: boolean,
+    totalElements: number,
+    data: provider[],
+}
+
 export type {
     userInterface,
     sessionInterface,
+    provider,
+    providerQuery
 }
