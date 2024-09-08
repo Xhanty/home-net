@@ -1,8 +1,17 @@
 {
     "config": {
         "byzantiumBlock": 0,
-        "chainId": 202409,
+        "chainId": 2024097,
         "constantinopleBlock": 0,
+        "contractNativeMinterConfig": {
+            "adminAddresses": [
+                "0xc6811fc3ae53afde1812a372b88f152d062fdef2"
+            ],
+            "managerAddresses": [
+                "0xe1e39bb25cbf114ac673bc330b1f2385d66cdbb4"
+            ],
+            "blockTimestamp": 0
+        },
         "eip150Block": 0,
         "eip155Block": 0,
         "eip158Block": 0,
@@ -10,30 +19,48 @@
             "gasLimit": 12000000,
             "targetBlockRate": 2,
             "minBaseFee": 25000000000,
-            "targetGas": 60000000,
+            "targetGas": 25000000,
             "baseFeeChangeDenominator": 36,
             "minBlockGasCost": 0,
             "maxBlockGasCost": 1000000,
             "blockGasCostStep": 200000
         },
+        "feeManagerConfig": {
+            "adminAddresses": [
+                "0xc6811fc3ae53afde1812a372b88f152d062fdef2"
+            ],
+            "managerAddresses": [
+                "0xe1e39bb25cbf114ac673bc330b1f2385d66cdbb4"
+            ],
+            "blockTimestamp": 0
+        },
         "homesteadBlock": 0,
         "istanbulBlock": 0,
         "muirGlacierBlock": 0,
         "petersburgBlock": 0,
+        "rewardManagerConfig": {
+            "adminAddresses": [
+                "0xc6811fc3ae53afde1812a372b88f152d062fdef2"
+            ],
+            "managerAddresses": [
+                "0xe1e39bb25cbf114ac673bc330b1f2385d66cdbb4"
+            ],
+            "blockTimestamp": 0
+        },
         "warpConfig": {
-            "blockTimestamp": 1725754566,
+            "blockTimestamp": 1725803646,
             "quorumNumerator": 67
         }
     },
     "nonce": "0x0",
-    "timestamp": "0x66dcecc6",
+    "timestamp": "0x66ddac7e",
     "extraData": "0x",
     "gasLimit": "0xb71b00",
     "difficulty": "0x0",
     "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
     "coinbase": "0x0000000000000000000000000000000000000000",
     "alloc": {
-        "8db97c7cece249c2b98bdc0226cc4c2a57bf52fc": {
+        "13d89fac398bf89bda4bcd1a56ec7dab5d0edda1": {
             "balance": "0xd3c21bcecceda1000000"
         },
         "e3255b7c4583b349789dc871f127d326c81e7faf": {
