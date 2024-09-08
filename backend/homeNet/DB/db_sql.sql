@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 08-09-2024 a las 15:34:35
+-- Tiempo de generación: 08-09-2024 a las 17:35:20
 -- Versión del servidor: 8.3.0
 -- Versión de PHP: 7.4.33
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `app_home_net`
 --
+
 -- --------------------------------------------------------
 
 --
@@ -37,6 +38,22 @@ CREATE TABLE IF NOT EXISTS `jwt` (
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_jwt_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `proveedores`
+--
+
+DROP TABLE IF EXISTS `proveedores`;
+CREATE TABLE IF NOT EXISTS `proveedores` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `wallet` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `valor` int NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------

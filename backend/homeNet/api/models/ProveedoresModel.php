@@ -5,9 +5,9 @@ namespace api\models;
 use core\main\FrameworkOrm;
 use core\main\models\UserModel;
 
-class DemoModel extends FrameworkOrm
+class ProveedoresModel extends FrameworkOrm
 {
-    const TABLE = 'demo';
+    const TABLE = 'proveedores';
 
     const ARRAY_MAPPER = [
         'id' => [
@@ -20,28 +20,17 @@ class DemoModel extends FrameworkOrm
             'type' => 'varchar',
             'nullable' => false,
         ],
-        'imageUrl' => [
-            'type' => 'longtext',
+        'wallet' => [
+            'type' => 'varchar',
             'nullable' => false,
         ],
-        'createdBy' => [
+        'city' => [
+            'type' => 'varchar',
+            'nullable' => false,
+        ],
+        'valor' => [
             'type' => 'int',
             'nullable' => false,
-            'relation' => UserModel::class,
-        ],
-        'updatedBy' => [
-            'type' => 'int',
-            'relation' => UserModel::class,
-            'nullable' => true,
-        ],
-        'created_at' => [
-            'type' => 'datetime',
-            'default' => 'CURRENT_TIMESTAMP',
-            'nullable' => false,
-        ],
-        'updated_at' => [
-            'type' => 'datetime',
-            'nullable' => true,
         ],
     ];
 }
