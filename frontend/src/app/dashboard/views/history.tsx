@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import env from '../../../../enviroment.json'
 
 import { useReadContract, useAccount } from 'wagmi'
+import { Oval } from 'react-loader-spinner'
 
 
 interface HistoryInterface {
@@ -19,6 +20,8 @@ export default function History() {
 
     const [history, setHistory] = useState<HistoryInterface[]>([])
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const currentUser = useAccount()
 
     const result = useReadContract({
@@ -30,10 +33,9 @@ export default function History() {
 
     useEffect(() => {
         if (result.data) {
-            console.log(result.data);
-
             setHistory(result.data as HistoryInterface[])
         }
+        setIsLoading(false)
     }, [result])
 
     function formatTimestampToDate(timestamp: bigint): string {
@@ -52,36 +54,56 @@ export default function History() {
     return (
         <div className="table-section">
             <h2>Historial de transacciones</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th style={{
-                            borderRadius: '.5rem 0 0 0',
-                        }}>ID</th>
-                        <th>Proveedor</th>
-                        <th>Watts</th>
-                        <th>Fecha de compra</th>
-                        <th style={{
-                            borderRadius: '0 .5rem 0 0',
-                        }}>Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        history.map((row, key) => {
-                            return (
-                                <tr key={key} >
-                                    <td>{row.id.toString()}</td>
-                                    <td>{row.Proveedor}</td>
-                                    <td>{row.Watts.toString() + ' W'}</td>
-                                    <td>{formatTimestampToDate(row.FCompra as bigint)}</td>
-                                    <td>{(+row.Valor.toString() / 18).toString().substring(0, 10) + ' AVAX'}</td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
+
+            {
+                !isLoading ? (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style={{
+                                    borderRadius: '.5rem 0 0 0',
+                                }}>ID</th>
+                                <th>Proveedor</th>
+                                <th>Watts</th>
+                                <th>Fecha de compra</th>
+                                <th style={{
+                                    borderRadius: '0 .5rem 0 0',
+                                }}>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                history.map((row, key) => {
+                                    return (
+                                        <tr key={key} >
+                                            <td>{row.id.toString()}</td>
+                                            <td>{row.Proveedor}</td>
+                                            <td>{row.Watts.toString() + ' W'}</td>
+                                            <td>{formatTimestampToDate(row.FCompra as bigint)}</td>
+                                            <td>{(+row.Valor.toString() / 18).toString().substring(0, 10) + ' AVAX'}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                ) : (
+                    <div style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '20px',
+                    }}>
+                        <Oval
+                            height={100}
+                            width={100}
+                            color='var(--color-primary)'
+                            secondaryColor='var(--color-primary)'
+                        />
+                    </div>
+                )
+            }
+
         </div>
     )
 }

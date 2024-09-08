@@ -2,7 +2,7 @@
 
 import React, { FormEvent, useState } from 'react'
 import '../../css/form.css'
-import { useReadContract, useAccount } from 'wagmi'
+import { useAccount, useWriteContract } from 'wagmi'
 import { Oval } from 'react-loader-spinner'
 import { toast } from 'react-toastify';
 
@@ -17,13 +17,15 @@ export default function Adquirir() {
 
     const currentUser = useAccount()
 
-    const onValueChange = (newValue: FormEvent<HTMLInputElement>) => {
+    const { writeContract } = useWriteContract()
+
+    const onValueChange = async (newValue: FormEvent<HTMLInputElement>) => {
         if (newValue.nativeEvent && newValue.nativeEvent.target) {
             setWattsCount(Number((newValue.nativeEvent.target as HTMLInputElement).value) * wattsXvalue)
         }
     }
 
-    const SaveCharges = (evt: FormEvent<HTMLFormElement>) => {
+    const SaveCharges = async (evt: FormEvent<HTMLFormElement>) => {
 
         evt.preventDefault()
 
@@ -33,7 +35,21 @@ export default function Adquirir() {
 
         try {
 
-            useReadContract({
+
+
+            // useReadContract({
+            //     abi: env.homeNet.abi,
+            //     address: env.homeNet.address as `0x${string}`,
+            //     functionName: 'addServicio',
+            //     args: [
+            //         formDataObj.provider as `0x${string}`,
+            //         currentUser.address,
+            //         formDataObj.watts,
+            //         formDataObj.value
+            //     ],
+            // })
+
+            const response = await writeContract({
                 abi: env.homeNet.abi,
                 address: env.homeNet.address as `0x${string}`,
                 functionName: 'addServicio',
@@ -45,9 +61,15 @@ export default function Adquirir() {
                 ],
             })
 
+            console.log(response)
+
+            setIsSaving(false)
+
         } catch (error) {
             setIsSaving(false)
             toast.error("Error al recargar la energía")
+            console.log(error);
+
         }
 
     }
@@ -63,7 +85,7 @@ export default function Adquirir() {
                         <label htmlFor="">Proveedor</label>
                         <select name="provider" required>
                             <option selected disabled > Seleccione una opción </option>
-                            <option value="1">1</option>
+                            <option value="0xc6811Fc3AE53AFde1812A372b88F152d062fdef2">Santiago</option>
                         </select>
                     </div>
                 </div>
@@ -91,7 +113,7 @@ export default function Adquirir() {
                                 color='var(--color-primary)'
                                 secondaryColor='var(--color-primary)'
                             />
-                            : <button>Recargar energía</button>
+                            : <button type='submit'>Recargar energía</button>
                     }
 
                 </div>
