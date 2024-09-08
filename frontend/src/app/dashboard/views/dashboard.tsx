@@ -49,6 +49,14 @@ export default function Dashboard() {
 
   return (
     <>
+      <div className="user-profile">
+        <div className="logo">
+          <img src="https://api.natupuntos.online/api/uploads/users/profile/logo.png" />
+          <h2>3.865 HMT</h2>
+          <p>HOMES TOKEN</p>
+        </div>
+      </div>
+
       <div className="analyse">
         <div className="sales">
           <div className="status">
@@ -105,16 +113,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-
-
-      <div className="user-profile">
-        <div className="logo">
-          <img src="https://api.natupuntos.online/api/uploads/users/profile/logo.png" />
-          <h2>AsmrProg</h2>
-          <p>Fullstack Web Developer</p>
-        </div>
-      </div>
     </>
-
   );
 }
