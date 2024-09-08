@@ -268,7 +268,7 @@ aside .sidebar .message-count {
 
 .main_container .analyse {
   display: grid;
-  grid-template-columns: 10rem auto;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1.6rem;
 }
 
@@ -318,8 +318,8 @@ aside .sidebar .message-count {
 
 .main_container .analyse .sales svg circle {
   stroke: var(--color-success);
-  stroke-dashoffset: -30;
-  stroke-dasharray: 200;
+  stroke-dashoffset: 0;
+  stroke-dasharray: 100;
 }
 
 .main_container .analyse .visits svg circle {
@@ -444,6 +444,7 @@ aside .sidebar .message-count {
   display: flex;
   justify-content: end;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .nav button {
